@@ -1,5 +1,15 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    h1= title
+    p Administrar articulos
+
+    h2 Crear nuevo articulos
+
+    h2 Articulos
+
+    ul 
+    each articulo in articulos
+      li
+         = articulo.nombre
+         
