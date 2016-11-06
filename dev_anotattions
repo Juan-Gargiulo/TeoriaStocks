@@ -1,0 +1,41 @@
+-------------------TABLAS
+
+__Articulo__
+*Proveedor
+nombre
+cantidadOrdenada
+costoPedido
+demandaDiaria
+produccionDiaria
+costoMantenimiento
+servicioDeseado
+periodoRevision
+desviacionEstandar
+
+costoUnitario
+plazoReposicion
+
+__Proveedor__
+*Articulo
+nombre
+costoUnitario
+plazoReposicion
+
+
+*******************PASOS PARA DEFINIR ABC:
+
+1- Definir consumoAnual del articulo (demandaDiaria * diasTrabajados), precioUnitario
+
+2- Definir la tabla:
+
+porcParticipacion (100% % cantidad de articulos)
+consumoValorizacion (consumoAnual * precioUnitario)
+porcValorizacion ( (ConsumoValorizacion * 100) /  sumatoria consumoValorizacion )
+
+3- Se ordena por porcValorizacion
+
+4- los primeros que acumulen el 60% de valoracion acumulado son son de la zona A
+
+5- opcional: del 60 al 80 son de la zona B
+
+6- el resto son C
