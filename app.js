@@ -21,6 +21,8 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+global.diasHabiles = 365;
+
 app.use('/', routes);
 app.use('/articulos', articulos);
 

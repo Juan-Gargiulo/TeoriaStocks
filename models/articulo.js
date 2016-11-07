@@ -11,7 +11,8 @@ module.exports = function(sequelize, DataTypes) {
     periodoRevicion: DataTypes.INTEGER,
     desviacionEstandar: DataTypes.INTEGER,
     costoUnitario: DataTypes.DECIMAL,
-    plazoRepocicion: DataTypes.INTEGER
+    plazoRepocicion: DataTypes.INTEGER,
+    modelo: DataTypes.CHAR
   }, {
     classMethods: {
       associate: function(models) {
