@@ -5,43 +5,72 @@ var router = express.Router();
 const models = require('../models');
 const StockItem = require('../stockModule2');
 const moment = require('moment');
+const Sequelize = require('sequelize');
 
 
-/* GET users listing. */
 router
 
 .get('/', (req, res) => {
-   models.Articulo.findAll().then( (articulos) => {
-      console.log( articulos )
-      res.render('articulos', {
-         title: 'Administrar articulos',
-         articulos: articulos
-      });
-   });
+        models.Articulo.findAll().then((articulos) => {
+            console.log(articulos)
+            res.render('articulos', {
+                title: 'Administrar articulos',
+                articulos: articulos
+            });
+        });
+    })
+
+
+.get('/:id(\\d+)/', (req, res) => {
+    models.Articulo.findById(req.params.id).then((articulo) => {
+
+        var s1 = new StockItem(articulo.dataValues)
+        console.log("la cantidad optima del pedido es: " + s1.cantOptimaPed())
+
+        res.json(articulo);
+    });
 })
 
-.get('/:id', (req, res)=> {
-   models.Articulo.findById(req.params.id).then( (articulo)=> {
+//ruta para calcula abc de los articulos segun su valoricacion anual
+.get('/abc', (req, res) => {
 
-      var s1 = new StockItem(articulo.dataValues)
-      console.log("la cantidad optima del pedido es: " + s1.cantOptimaPed())
+    //esta query trae los articulos con su porcentaje de valorizacion anual
+    let query = `WITH TOTAL_VALORIZADO AS
+         (SELECT SUM(costoUnitario*demandaDiaria) AS TOTAL FROM articulos)
+         SELECT A.nombre, costoUnitario*demandaDiaria AS "valorizado", ( (costoUnitario*demandaDiaria*100) / T.TOTAL ) AS "pValorizado"
+         FROM articulos A, TOTAL_VALORIZADO T
+         ORDER BY "pValorizado" DESC;`
 
-      res.json(articulo)
-   });
+    let sequelize = new Sequelize({
+        dialect: 'sqlite',
+        storage: './db.development.sqlite'
+    })
+
+    sequelize.query(query, {
+            type: sequelize.QueryTypes.SELECT
+        })
+        .then(function(articulos) {
+            let modelo = 'q'
+            let valorAcum = 0
+
+            let result = []
+            for (var i = 0; i < articulos.length; i++) {
+               valorAcum = valorAcum + articulos[i].pValorizado
+               if (valorAcum > 79) {
+                  modelo = 'p'
+               }
+               console.log(valorAcum);
+               articulos[i].modelo = modelo
+            }
+
+            res.render('abc', {
+                title: 'Tabla ABC articulos',
+                articulos: articulos
+            });
+
+        })
 })
 
-.put('/:id', (req, res)=> {
-   models.Articulo.findById(req.params.id).then( (articulo)=> {
-
-      articulo.updateAttributes( {
-         nombre: 'caramelo sugus',
-         ultima_revision: new Date()
-      }).then( (articulo)=> {
-         res.json(articulo)
-      });
-
-   });
-})
 
 .post('/', (req, res) => {
     models.Articulo.create({
@@ -55,25 +84,26 @@ router
         servicioDeseado: req.body.servicioDeseado,
         periodoRevicion: req.body.periodoRevicion,
         desviacionEstandar: req.body.desviacionEstandar,
-        plazoRepocicion: req.body.plazoRepocicion
+        plazoRepocicion: req.body.plazoRepocicion7u
 
-    }).then( (articulo) => {
-      res.redirect('/')
+    }).then((articulo) => {
+        res.redirect('/articulos')
     });
-});
+})
+
+
+.put('/:id', (req, res) => {
+    models.Articulo.findById(req.params.id).then((articulo) => {
+
+        articulo.updateAttributes({
+            nombre: 'caramelo sugus',
+            ultima_revision: new Date()
+        }).then((articulo) => {
+            res.json(articulo)
+        });
+
+    });
+})
 
 
 module.exports = router;
-
-
-// nombre: DataTypes.STRING,
-// cantidadOrdenada: DataTypes.INTEGER,
-// costoPedido: DataTypes.DECIMAL,
-// demandaDiaria: DataTypes.INTEGER,
-// produccionDiaria: DataTypes.INTEGER,
-// costoMantenimiento: DataTypes.INTEGER,
-// servivioDeseado: DataTypes.INTEGER,
-// periodoRevicion: DataTypes.INTEGER,
-// desviacionEstandar: DataTypes.INTEGER,
-// costoUnitario: DataTypes.DECIMAL,
-// plazoRepocicion: DataTypes.INTEGER

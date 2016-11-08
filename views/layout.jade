@@ -2,9 +2,23 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    //link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css')
   body
-    a(href="/articulos") articulos
+  
+    nav.navbar.navbar-inverse(role="navigation")
+        .container-fluid
+            .navbar-header
+                a.navbar-brand(href="/")
+                    |HOME
+            .collapse.navbar-collapse
+                ul.nav.navbar-nav
+                    each item in navitems
+                        li
+                            a(href=item.link)
+                                =item.content 
+  
     h1= title
     block content
+    script(src='//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js', async=true)
        

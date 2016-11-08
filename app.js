@@ -26,6 +26,11 @@ global.diasHabiles = 365;
 app.use('/', routes);
 app.use('/articulos', articulos);
 
+app.locals.navitems = [
+  {link: '/articulos', content: 'articulos'},
+  {link: '/articulos/abc', content: 'abc'}
+];
+
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

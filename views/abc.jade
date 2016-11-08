@@ -1,0 +1,19 @@
+extends layout
+
+block content
+
+    div
+        table.table
+            thead
+                tr
+                  th articulos
+                  th valorizado
+                  th %valorizado
+                  th modelo
+            tbody
+                each art, a in articulos
+                    tr
+                        td #{art.nombre}
+                        td #{art.valorizado}
+                        td #{art.pValorizado}
+                        td #{art.modelo}

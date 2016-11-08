@@ -15,6 +15,7 @@
     "morgan": "~1.0.0",
     "norm-dist": "^1.0.0",
     "sequelize": "^3.24.8",
+    "sqlite3": "^3.1.8",
     "static-favicon": "~1.0.0",
     "ztable": "^1.0.7"
   },
