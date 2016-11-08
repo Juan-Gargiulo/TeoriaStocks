@@ -1,7 +1,10 @@
+'use strict'
+
 var express = require('express');
 var router = express.Router();
 const models = require('../models');
 const StockItem = require('../stockModule2');
+const moment = require('moment');
 
 
 /* GET users listing. */
@@ -19,8 +22,24 @@ router
 
 .get('/:id', (req, res)=> {
    models.Articulo.findById(req.params.id).then( (articulo)=> {
+
       var s1 = new StockItem(articulo.dataValues)
-      console.log(s1.cantOptimaPed())
+      console.log("la cantidad optima del pedido es: " + s1.cantOptimaPed())
+
+      res.json(articulo)
+   });
+})
+
+.put('/:id', (req, res)=> {
+   models.Articulo.findById(req.params.id).then( (articulo)=> {
+
+      articulo.updateAttributes( {
+         nombre: 'caramelo sugus',
+         ultima_revision: new Date()
+      }).then( (articulo)=> {
+         res.json(articulo)
+      });
+
    });
 })
 
@@ -39,9 +58,10 @@ router
         plazoRepocicion: req.body.plazoRepocicion
 
     }).then( (articulo) => {
-      res.redidect('/')
+      res.redirect('/')
     });
 });
+
 
 module.exports = router;
 

@@ -4,6 +4,7 @@
 
 module.exports = function(modelo, cUnidad, cManten, demandaDiaria, cPedido) {
 
+
    this.demandaAnual = function() {
       return demandaDiaria * global.diasHabiles
    }

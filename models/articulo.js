@@ -2,6 +2,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Articulo = sequelize.define('Articulo', {
     nombre: DataTypes.STRING,
+    stock: DataTypes.INTEGER,
     cantidadOrdenada: DataTypes.INTEGER,
     costoPedido: DataTypes.DECIMAL,
     demandaDiaria: DataTypes.INTEGER,
@@ -9,10 +10,12 @@ module.exports = function(sequelize, DataTypes) {
     costoMantenimiento: DataTypes.INTEGER,
     servivioDeseado: DataTypes.INTEGER,
     periodoRevicion: DataTypes.INTEGER,
+    ultima_revision: DataTypes.DATE,
     desviacionEstandar: DataTypes.INTEGER,
     costoUnitario: DataTypes.DECIMAL,
     plazoRepocicion: DataTypes.INTEGER,
     modelo: DataTypes.CHAR
+
   }, {
     classMethods: {
       associate: function(models) {
