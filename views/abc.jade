@@ -13,7 +13,9 @@ block content
             tbody
                 each art, a in articulos
                     tr
-                        td #{art.nombre}
+                        
+                        td 
+                           a(href='/articulos/#{art.id}') #{art.nombre}    
                         td #{art.valorizado}
                         td #{art.pValorizado}
                         td #{art.modelo}

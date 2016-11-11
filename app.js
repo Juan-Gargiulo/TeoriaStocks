@@ -4,6 +4,7 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 
 var routes = require('./routes/index');
 var articulos = require('./routes/articulos');
@@ -23,14 +24,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 global.diasHabiles = 365;
 
-app.use('/', routes);
-app.use('/articulos', articulos);
-
 app.locals.navitems = [
-  {link: '/articulos', content: 'articulos'},
-  {link: '/articulos/abc', content: 'abc'}
+  {link: '/articulos', content: 'ARTICULOS'},
+  {link: '/articulos/abc', content: 'TABLA ABC'}
 ];
 
+app.use(methodOverride("_method"))
+
+app.use('/', routes);
+app.use('/articulos', articulos);
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

@@ -1,0 +1,54 @@
+extends layout
+
+block content
+
+    form.form(name='form', method='POST', action="/articulos/#{a.id}?_method=PUT")
+            input(type="hidden", value="PUT", name="_method")
+            
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Id
+               div.col-xs-10
+                  input.form-control(type='text', name='id', value='#{a.id}' disabled)
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Nombre
+               div.col-xs-10
+                  input.form-control(type='text', name='nombre', value='#{a.nombre}')
+               div(class='form-group row')
+               label.col-form-label.col-xs-2 Modelo
+               div.col-xs-10
+                  input.form-control(type='text', name='modelo', value='#{a.modelo}')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Costo
+               div.col-xs-10
+                  input.form-control(type='number', name='costoUnitario', value='#{a.costoUnitario}')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Unidades X Bulto
+               div.col-xs-10
+                  input.form-control(type='number', name='unidadesXbulto', value='#{a.unidadesXbulto}')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Stock
+               div.col-xs-10
+                  input.form-control(type='number', name='stock', value='#{a.stock}')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Demanda diaria
+               div.col-xs-10
+                  input.form-control(type='text', name='demandaDiaria', value='#{a.demandaDiaria}')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Periodo de Revición
+               div.col-xs-10
+                  input.form-control(type='text', name='periodoRevicion', value='#{a.periodoRevicion}')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Plazo de Reposición
+               div.col-xs-10
+                  input.form-control(type='text', name='a.plazoRepocicion', value='#{a.plazoRepocicion}')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Ultima Revisión
+               div.col-xs-10
+                  input.form-control(type='text', name='a.ultima_revision', value='#{a.ultima_revision}')
+            br
+            button.btn.btn-lg.btn-primary(type='submit')  Modificar
+
+    h4 Q optimo de pedido: #{Q}
+    
+                
+    form.form(name='form', method='POST', action="/articulos/#{a.id}?_method=PUT")

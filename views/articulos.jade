@@ -3,16 +3,27 @@ extends layout
 block content
     
     br
-    button
-      bra(href="") Nuevo 
-
-    h4 Listado de Articulos
+    a(href="/articulos/new") (Nuevo Articulo)
+    br
+    br
     
-    
-
-    ul 
-    each articulo in articulos
-      li
-         = articulo.nombre 
+    div
+        table.table
+            thead
+                tr
+                  th ID
+                  th Nombre
+                  th valorizado
+                  th %valorizado
+                  th modelo
+            tbody
+                each art, a in articulos
+                    tr
+                        td #{art.id}
+                        td
+                           a(href='/articulos/#{art.id}') #{art.nombre}  
+                        td #{art.valorizado}
+                        td #{art.pValorizado}
+                        td #{art.modelo}
          
          

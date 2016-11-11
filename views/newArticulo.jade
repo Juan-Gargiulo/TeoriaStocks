@@ -1,0 +1,43 @@
+extends layout
+
+block content
+
+    form.form(name='form', method='POST', action='/articulos')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Nombre
+               div.col-xs-10
+                  input.form-control(type='text', name='nombre')
+               div(class='form-group row')
+               label.col-form-label.col-xs-2 Modelo
+               div.col-xs-10
+                  input.form-control(type='text', name='modelo')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Costo
+               div.col-xs-10
+                  input.form-control(type='number', name='costoUnitario')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Unidades X Bulto
+               div.col-xs-10
+                  input.form-control(type='number', name='unidadesXbulto')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Stock
+               div.col-xs-10
+                  input.form-control(type='number', name='stock')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Demanda diaria
+               div.col-xs-10
+                  input.form-control(type='text', name='demandaDiaria')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Periodo de Revición
+               div.col-xs-10
+                  input.form-control(type='text', name='periodoRevicion')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Plazo de Reposición
+               div.col-xs-10
+                  input.form-control(type='text', name='a.plazoRepocicion')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Ultima Revisión
+               div.col-xs-10
+                  input.form-control(type='text', name='a.ultima_revision')
+            br
+            button.btn.btn-lg.btn-primary(type='submit')  Agregar
