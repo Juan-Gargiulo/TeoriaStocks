@@ -13,8 +13,6 @@ block content
                 tr
                   th ID
                   th Nombre
-                  th valorizado
-                  th %valorizado
                   th modelo
             tbody
                 each art, a in articulos
@@ -22,8 +20,6 @@ block content
                         td #{art.id}
                         td
                            a(href='/articulos/#{art.id}') #{art.nombre}  
-                        td #{art.valorizado}
-                        td #{art.pValorizado}
                         td #{art.modelo}
          
          

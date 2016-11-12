@@ -16,6 +16,14 @@ block content
                div.col-xs-10
                   input.form-control(type='number', name='costoUnitario')
             div(class='form-group row')
+               label.col-form-label.col-xs-2 Costo Pedido
+               div.col-xs-10
+                  input.form-control(type='number', name='costoPedido')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Costo Mantenimiento
+               div.col-xs-10
+                  input.form-control(type='number', name='costoMantenimiento')
+            div(class='form-group row')
                label.col-form-label.col-xs-2 Unidades X Bulto
                div.col-xs-10
                   input.form-control(type='number', name='unidadesXbulto')
@@ -24,20 +32,28 @@ block content
                div.col-xs-10
                   input.form-control(type='number', name='stock')
             div(class='form-group row')
-               label.col-form-label.col-xs-2 Demanda diaria
+               label.col-form-label.col-xs-2 Demanda Diaria
                div.col-xs-10
-                  input.form-control(type='text', name='demandaDiaria')
+                  input.form-control(type='number', name='demandaDiaria')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Produccion Diaria
+               div.col-xs-10
+                  input.form-control(type='number', name='produccionDiaria')
             div(class='form-group row')
                label.col-form-label.col-xs-2 Periodo de Revición
                div.col-xs-10
-                  input.form-control(type='text', name='periodoRevicion')
+                  input.form-control(type='number', name='periodoRevicion')
             div(class='form-group row')
                label.col-form-label.col-xs-2 Plazo de Reposición
                div.col-xs-10
-                  input.form-control(type='text', name='a.plazoRepocicion')
+                  input.form-control(type='number', name='plazoRepocicion')
             div(class='form-group row')
-               label.col-form-label.col-xs-2 Ultima Revisión
+               label.col-form-label.col-xs-2 Desvicación Estantar
                div.col-xs-10
-                  input.form-control(type='text', name='a.ultima_revision')
+                  input.form-control(type='number', name='desviacionEstandar')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Servicio Deseado
+               div.col-xs-10
+                  input.form-control(type='number', name='servivioDeseado')
             br
             button.btn.btn-lg.btn-primary(type='submit')  Agregar

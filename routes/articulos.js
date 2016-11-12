@@ -27,7 +27,8 @@ router
         res.render('editArticulo', {
            title: articulo.nombre,
            a: articulo,
-           Q: s1.cantOptimaPed()
+           Q: s1.cantOptimaPed(),
+           R: s1.puntoReorden()
         });
     });
 })
@@ -52,9 +53,7 @@ router
         storage: './db.development.sqlite'
     })
 
-    sequelize.query(query, {
-            type: sequelize.QueryTypes.SELECT
-        })
+    sequelize.query(query, { type: sequelize.QueryTypes.SELECT })
         .then(function(articulos) {
             let modelo = 'Q'
             let valorAcum = 0
@@ -80,16 +79,19 @@ router
 .post('/', (req, res) => {
     models.Articulo.create({
 
-        nombre: req.body.nombre,
-        costoUnitario: req.body.costoUnitario,
-        costoPedido: req.body.costoPedido,
-        demandaDiaria: req.body.demandaDiaria,
-        produccionDiaria: req.body.produccionDiaria,
-        costoMantenimiento: req.body.costoMantenimiento,
-        servicioDeseado: req.body.servicioDeseado,
-        periodoRevicion: req.body.periodoRevicion,
-        desviacionEstandar: req.body.desviacionEstandar,
-        plazoRepocicion: req.body.plazoRepocicion,
+      nombre: req.body.nombre,
+      stock: req.body.stock,
+      unidadesXbulto: req.body.unidadesXbulto,
+      costoUnitario: req.body.costoUnitario,
+      costoPedido: req.body.costoPedido,
+      costoMantenimiento: req.body.costoMantenimiento,
+      demandaDiaria: req.body.demandaDiaria,
+      produccionDiaria: req.body.produccionDiaria,
+      plazoRepocicion: req.body.plazoRepocicion,
+      periodoRevicion: req.body.periodoRevicion,
+      servivioDeseado: req.body.servivioDeseado,
+      desviacionEstandar: req.body.desviacionEstandar,
+      modelo: req.body.modelo
 
     }).then((articulo) => {
         res.redirect('/articulos')
@@ -102,15 +104,17 @@ router
         articulo.updateAttributes({
 
            nombre: req.body.nombre,
+           stock: req.body.stock,
+           unidadesXbulto: req.body.unidadesXbulto,
            costoUnitario: req.body.costoUnitario,
            costoPedido: req.body.costoPedido,
+           costoMantenimiento: req.body.costoMantenimiento,
            demandaDiaria: req.body.demandaDiaria,
            produccionDiaria: req.body.produccionDiaria,
-           costoMantenimiento: req.body.costoMantenimiento,
-           servicioDeseado: req.body.servicioDeseado,
-           periodoRevicion: req.body.periodoRevicion,
-           desviacionEstandar: req.body.desviacionEstandar,
            plazoRepocicion: req.body.plazoRepocicion,
+           periodoRevicion: req.body.periodoRevicion,
+           servivioDeseado: req.body.servivioDeseado,
+           desviacionEstandar: req.body.desviacionEstandar,
            modelo: req.body.modelo
 
         }).then((articulo) => {

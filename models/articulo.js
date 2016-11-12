@@ -18,7 +18,10 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             defaultValue: 0
         },
-        produccionDiaria: DataTypes.INTEGER,
+        produccionDiaria: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
         costoMantenimiento: {
             type: DataTypes.INTEGER,
             defaultValue: 0
@@ -38,13 +41,13 @@ module.exports = function(sequelize, DataTypes) {
             defaultValue: 0
         },
         plazoRepocicion: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.DECIMAL,
             defaultValue: 0
         },
         modelo: DataTypes.CHAR,
         unidadesXbulto: {
             type: DataTypes.INTEGER,
-            defaultValue: 0
+            defaultValue: 1
         },
     }, {
         classMethods: {

@@ -6,21 +6,21 @@ block content
             input(type="hidden", value="PUT", name="_method")
             
             div(class='form-group row')
-               label.col-form-label.col-xs-2 Id
-               div.col-xs-10
-                  input.form-control(type='text', name='id', value='#{a.id}' disabled)
-            div(class='form-group row')
                label.col-form-label.col-xs-2 Nombre
                div.col-xs-10
                   input.form-control(type='text', name='nombre', value='#{a.nombre}')
-               div(class='form-group row')
-               label.col-form-label.col-xs-2 Modelo
-               div.col-xs-10
-                  input.form-control(type='text', name='modelo', value='#{a.modelo}')
             div(class='form-group row')
                label.col-form-label.col-xs-2 Costo
                div.col-xs-10
                   input.form-control(type='number', name='costoUnitario', value='#{a.costoUnitario}')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Costo Pedido
+               div.col-xs-10
+                  input.form-control(type='number', name='costoPedido', value='#{a.costoPedido}')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Costo Mantenimiento
+               div.col-xs-10
+                  input.form-control(type='number', name='costoMantenimiento', value='#{a.costoMantenimiento}')
             div(class='form-group row')
                label.col-form-label.col-xs-2 Unidades X Bulto
                div.col-xs-10
@@ -30,25 +30,42 @@ block content
                div.col-xs-10
                   input.form-control(type='number', name='stock', value='#{a.stock}')
             div(class='form-group row')
-               label.col-form-label.col-xs-2 Demanda diaria
+               label.col-form-label.col-xs-2 Demanda Diaria
                div.col-xs-10
-                  input.form-control(type='text', name='demandaDiaria', value='#{a.demandaDiaria}')
+                  input.form-control(type='number', name='demandaDiaria', value='#{a.demandaDiaria}')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Produccion Diaria
+               div.col-xs-10
+                  input.form-control(type='number', name='produccionDiaria', value='#{a.produccionDiaria}')
             div(class='form-group row')
                label.col-form-label.col-xs-2 Periodo de Revición
                div.col-xs-10
-                  input.form-control(type='text', name='periodoRevicion', value='#{a.periodoRevicion}')
+                  input.form-control(type='number', name='periodoRevicion', value='#{a.periodoRevicion}')
             div(class='form-group row')
                label.col-form-label.col-xs-2 Plazo de Reposición
                div.col-xs-10
-                  input.form-control(type='text', name='a.plazoRepocicion', value='#{a.plazoRepocicion}')
+                  input.form-control(type='number', step='0.01', name='plazoRepocicion', value='#{a.plazoRepocicion}')
             div(class='form-group row')
-               label.col-form-label.col-xs-2 Ultima Revisión
+               label.col-form-label.col-xs-2 Desvicación Estantar
                div.col-xs-10
-                  input.form-control(type='text', name='a.ultima_revision', value='#{a.ultima_revision}')
+                  input.form-control(type='number', name='desviacionEstandar', value='#{a.desviacionEstandar}')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Servicio Deseado
+               div.col-xs-10
+                  input.form-control(type='number', name='servivioDeseado', value='#{a.servivioDeseado}')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Modelo
+               div.col-xs-10
+                  input.form-control(type='text', name='modelo', value='#{a.modelo}')
             br
             button.btn.btn-lg.btn-primary(type='submit')  Modificar
-
-    h4 Q optimo de pedido: #{Q}
+            br
+            br
+    
+    h2 Q optimo de pedido: #{Q}
+    if a.modelo == "q"
+      h2 Punto Reorden: #{R}
+    br
     
                 
     form.form(name='form', method='POST', action="/articulos/#{a.id}?_method=PUT")
