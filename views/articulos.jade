@@ -1,25 +1,41 @@
 extends layout
 
 block content
-    
+
     br
-    a(href="/articulos/new") (Nuevo Articulo)
+    div.row.pad
+       div.col-xs-3
+          a(href="/articulos/new") 
+              button.btn.btn-success.btn-block  Nuevo Articulo
+       div.col-xs-3  
+          a(href="/articulos/abc") 
+              button.btn.btn-block  Tabla ABC  
+       div.col-xs-3
+          a(href="/articulos/criticos") 
+              button.btn.btn-block  Stocks Criticos  
+
     br
     br
     
     div
+
         table.table
             thead
                 tr
-                  th ID
-                  th Nombre
-                  th modelo
+                    th ID
+                    th Nombre
+                    th Stock
+                    th Modelo Actual
+                    th Modelo Sugerido
             tbody
                 each art, a in articulos
-                    tr
-                        td #{art.id}
-                        td
-                           a(href='/articulos/#{art.id}') #{art.nombre}  
-                        td #{art.modelo}
-         
-         
+                  tr
+                     td #{art.id}
+                     td
+                        a(href='/articulos/#{art.id}') #{art.nombre}  
+                     td #{art.stock}
+                     td #{art.modelo}
+                     td #{art.modeloSugerido} &nbsp 
+                        if art.modelo != art.modeloSugerido
+                           span.glyphicon.glyphicon-hand-left
+                           

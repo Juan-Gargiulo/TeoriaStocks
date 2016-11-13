@@ -45,9 +45,17 @@ module.exports = function(sequelize, DataTypes) {
             defaultValue: 0
         },
         modelo: DataTypes.CHAR,
+        modeloSugerido: {
+            type: DataTypes.CHAR,
+            defaultValue: 'Q'
+        },
         unidadesXbulto: {
             type: DataTypes.INTEGER,
             defaultValue: 1
+        },
+        codigoBarra: {
+            type: DataTypes.STRING,
+            max: 12
         },
     }, {
         classMethods: {

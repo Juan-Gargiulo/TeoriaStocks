@@ -19,16 +19,34 @@ router
         });
     })
 
+.get('/criticos', (req, res) => {
+      models.Articulo.findAll().then((articulos) => {
+
+          let artResp = []
+          for (var i = 0; i < articulos.length; i++) {
+             var s1 = new StockItem(articulos[i])
+             if (articulos[i].dataValues.stock <= s1.puntoReorden()) {
+                articulos[i].dataValues.puntoReorden = s1.puntoReorden()
+                artResp.push(articulos[i].dataValues)
+             }
+          }
+          res.render('criticos', {
+              title: 'Stocks Criticos',
+              articulos: artResp
+          });
+      });
+  })
+
 
 .get('/:id(\\d+)', (req, res) => {
     models.Articulo.findById(req.params.id).then((articulo) => {
-        console.log(articulo.dataValues);
         var s1 = new StockItem(articulo.dataValues)
         res.render('editArticulo', {
            title: articulo.nombre,
            a: articulo,
            Q: s1.cantOptimaPed(),
-           R: s1.puntoReorden()
+           R: s1.puntoReorden(),
+           T: s1.costoTotalAnual()
         });
     });
 })
@@ -44,7 +62,7 @@ router
     //esta query trae los articulos con su porcentaje de valorizacion anual
     let query = `WITH TOTAL_VALORIZADO AS
          (SELECT SUM(costoUnitario*demandaDiaria) AS TOTAL FROM articulos)
-         SELECT A.id, A.nombre, costoUnitario*demandaDiaria AS "valorizado", ( (costoUnitario*demandaDiaria*100) / T.TOTAL ) AS "pValorizado"
+         SELECT A.id, A.modeloSugerido, A.nombre, costoUnitario*demandaDiaria AS "valorizado", ( (costoUnitario*demandaDiaria*100) / T.TOTAL ) AS "pValorizado"
          FROM articulos A, TOTAL_VALORIZADO T
          ORDER BY "pValorizado" DESC;`
 
@@ -53,7 +71,7 @@ router
         storage: './db.development.sqlite'
     })
 
-    sequelize.query(query, { type: sequelize.QueryTypes.SELECT })
+    sequelize.query(query, {type: sequelize.QueryTypes.SELECT })
         .then(function(articulos) {
             let modelo = 'Q'
             let valorAcum = 0
@@ -64,8 +82,10 @@ router
                if (valorAcum > 85) {
                   modelo = 'P'
                }
-               console.log(valorAcum);
                articulos[i].modelo = modelo
+
+               //sugiero el modelo en el modelo del articulo
+               models.Articulo.update({modeloSugerido: modelo}, {where: {id: articulos[i].id}})
             }
 
             res.render('abc', {
@@ -91,7 +111,8 @@ router
       periodoRevicion: req.body.periodoRevicion,
       servivioDeseado: req.body.servivioDeseado,
       desviacionEstandar: req.body.desviacionEstandar,
-      modelo: req.body.modelo
+      codigoBarra: req.body.codigoBarra,
+      modelo: req.body.modelo.toUpperCase()
 
     }).then((articulo) => {
         res.redirect('/articulos')
@@ -101,8 +122,11 @@ router
 
 .put('/:id(\\d+)', (req, res) => {
     models.Articulo.findById(req.params.id).then((articulo) => {
-        articulo.updateAttributes({
 
+        let m = req.body.modelo
+        m.toUpperCase()
+
+        articulo.updateAttributes({
            nombre: req.body.nombre,
            stock: req.body.stock,
            unidadesXbulto: req.body.unidadesXbulto,
@@ -115,7 +139,8 @@ router
            periodoRevicion: req.body.periodoRevicion,
            servivioDeseado: req.body.servivioDeseado,
            desviacionEstandar: req.body.desviacionEstandar,
-           modelo: req.body.modelo
+           codigoBarra: req.body.codigoBarra,
+           modelo: m
 
         }).then((articulo) => {
             res.redirect('/articulos')

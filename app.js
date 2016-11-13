@@ -25,8 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 global.diasHabiles = 365;
 
 app.locals.navitems = [
-  {link: '/articulos', content: 'ARTICULOS'},
-  {link: '/articulos/abc', content: 'TABLA ABC'}
+  {link: '/articulos', content: 'ARTICULOS'}
 ];
 
 app.use(methodOverride("_method"))

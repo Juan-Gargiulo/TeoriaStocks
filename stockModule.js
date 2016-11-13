@@ -2,7 +2,7 @@
 
 const moment = require('moment');
 const ztable = require('ztable');
-const _ = require('lodash');
+
 
 module.exports = function(articulo) {
 
@@ -33,9 +33,14 @@ module.exports = function(articulo) {
 
       if (articulo.modelo.toUpperCase() == 'Q') {
          //si produccion diaria es mayor a 0, es un articulo que se produce
-         if (articulo.produccionDiaria > 0) {
+         console.log(this.demandaAnual());
+         console.log(S);
+         console.log(H);
+         if (p > 0) {
+            console.log('modelo Q de prod');
             cantOptima = Math.sqrt( (2 * this.demandaAnual() * S * p) / (H * (p - d)) )
          }else{
+            console.log('modelo Q');
             cantOptima = Math.sqrt( (2 * this.demandaAnual() * S) / H )
          }
       }
@@ -43,12 +48,24 @@ module.exports = function(articulo) {
          cantOptima = d * ( T+L ) + ( Z * Otl ) - I
       }
 
-      return Math.floor( cantOptima )
+      return Math.floor( cantOptima / articulo.unidadesXbulto )
    }
 
    this.puntoReorden = ()=> {
       let p = (d * L) +  (Z * Od)
       return Math.floor( p )
+   }
+
+   this.costoTotalAnual = ()=> {
+      let total
+      if (p > 0) {
+         total = (this.demandaAnual() * C) + ((this.demandaAnual()/this.cantOptimaPed()) * S) +
+                 ((p-d) * this.cantOptimaPed() * H / (2*p));
+      }else {
+         total = (this.demandaAnual() * C) + ((this.demandaAnual()/this.cantOptimaPed()) * S) +
+                 ((this.cantOptimaPed()/2) * H);
+      }
+      return Math.floor( total )
    }
 
    this.calcularZ = (edz) => {
@@ -141,6 +158,7 @@ module.exports = function(articulo) {
    }
 
    //variables de calculo
+   let C = articulo.costoUnitario
    let d  = articulo.demandaDiaria
    let p  = articulo.produccionDiaria
    let S  = articulo.costoPedido

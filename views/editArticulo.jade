@@ -1,14 +1,22 @@
 extends layout
 
 block content
-
-    form.form(name='form', method='POST', action="/articulos/#{a.id}?_method=PUT")
+   div.col-md-6     
+      form.form(name='form', method='POST', action="/articulos/#{a.id}?_method=PUT")
             input(type="hidden", value="PUT", name="_method")
             
             div(class='form-group row')
                label.col-form-label.col-xs-2 Nombre
                div.col-xs-10
                   input.form-control(type='text', name='nombre', value='#{a.nombre}')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Modelo
+               div.col-xs-10
+                  input.form-control(type='text', name='modelo', style='text-transform:uppercase' value='#{a.modelo}')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Codigo de Barras
+               div.col-xs-10
+                  input.form-control(type='text', maxLength='12', name='codigoBarra', value='#{a.codigoBarra}')
             div(class='form-group row')
                label.col-form-label.col-xs-2 Costo
                div.col-xs-10
@@ -53,19 +61,20 @@ block content
                label.col-form-label.col-xs-2 Servicio Deseado
                div.col-xs-10
                   input.form-control(type='number', name='servivioDeseado', value='#{a.servivioDeseado}')
-            div(class='form-group row')
-               label.col-form-label.col-xs-2 Modelo
-               div.col-xs-10
-                  input.form-control(type='text', name='modelo', value='#{a.modelo}')
-            br
-            button.btn.btn-lg.btn-primary(type='submit')  Modificar
-            br
-            br
-    
-    h2 Q optimo de pedido: #{Q}
-    if a.modelo == "q"
-      h2 Punto Reorden: #{R}
-    br
-    
-                
-    form.form(name='form', method='POST', action="/articulos/#{a.id}?_method=PUT")
+            div.col-md-10
+            div.col-md-2      
+               button.btn.btn-lg.btn-success(type='submit')  Guardar Cambios
+               br
+               br
+               br
+   div.col-md-4        
+      p Modelo Sugerido: 
+         button.btn #{a.modeloSugerido}  
+      p Costo Total Anual: 
+         button.btn $ #{T}  
+      p Cantidad optima pedido: 
+         button.btn.btn-success #{Q} 
+      if a.modelo == "Q"
+         p Punto de Reorden: 
+            button.btn.btn-danger #{R} 
+      

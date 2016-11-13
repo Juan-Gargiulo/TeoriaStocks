@@ -3,11 +3,11 @@
 module.exports = {
   up: function (queryInterface, Sequelize) {
      queryInterface.addColumn(
-     'Articulos',
-     'stock',
+     'articulos',
+     'modeloSugerido',
      {
-         type: Sequelize.INTEGER,
-         allowNull: false
+         type: Sequelize.CHAR,
+         defaultValue: 'Q'
      }
      )
   },

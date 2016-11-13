@@ -9,13 +9,14 @@ block content
                   th Articulos
                   th Valorizado
                   th % Valorizado
-                  th Modelo
+                  th Modelo Actual
+                  th Modelo Sugerido
             tbody
                 each art, a in articulos
                     tr
-                        
                         td 
                            a(href='/articulos/#{art.id}') #{art.nombre}    
                         td $ #{art.valorizado}
                         td #{art.pValorizado}
                         td #{art.modelo}
+                        td #{art.modeloSugerido}

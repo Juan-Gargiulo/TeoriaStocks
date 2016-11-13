@@ -3,12 +3,12 @@
 module.exports = {
   up: function (queryInterface, Sequelize) {
      queryInterface.addColumn(
-     'Articulos',
-     'stock',
-     {
-         type: Sequelize.INTEGER,
-         allowNull: false
-     }
+      'articulos',
+      'codigoBarra',
+      {
+         type: Sequelize.STRING,
+         max: 12
+      }
      )
   },
 

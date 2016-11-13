@@ -7,7 +7,11 @@ block content
                label.col-form-label.col-xs-2 Nombre
                div.col-xs-10
                   input.form-control(type='text', name='nombre')
-               div(class='form-group row')
+            div(class='form-group row')
+               label.col-form-label.col-xs-2 Codigo de Barras
+               div.col-xs-10
+                  input.form-control(type='text', maxLength='12', name='codigoBarra')
+            div(class='form-group row')
                label.col-form-label.col-xs-2 Modelo
                div.col-xs-10
                   input.form-control(type='text', name='modelo')
@@ -46,7 +50,7 @@ block content
             div(class='form-group row')
                label.col-form-label.col-xs-2 Plazo de Reposición
                div.col-xs-10
-                  input.form-control(type='number', name='plazoRepocicion')
+                  input.form-control(type='number', step='0.01', name='plazoRepocicion')
             div(class='form-group row')
                label.col-form-label.col-xs-2 Desvicación Estantar
                div.col-xs-10
@@ -56,4 +60,6 @@ block content
                div.col-xs-10
                   input.form-control(type='number', name='servivioDeseado')
             br
-            button.btn.btn-lg.btn-primary(type='submit')  Agregar
+            button.btn.btn-lg.btn-success.btn-sm(type='submit')  Agregar
+            br
+            br

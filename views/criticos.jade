@@ -1,0 +1,24 @@
+extends layout
+
+block content
+
+    br
+    br 
+    div
+        table.table
+            thead
+                tr
+                    th ID
+                    th Nombre
+                    th Stock
+                    th Punto de Reorden
+            tbody
+                each art, a in articulos
+                  tr
+                     td #{art.id}
+                     td
+                        a(href='/articulos/#{art.id}') #{art.nombre}  
+                     td #{art.stock}
+                     td #{art.puntoReorden}
+
+                           
