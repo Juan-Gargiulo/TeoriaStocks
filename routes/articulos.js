@@ -53,7 +53,7 @@ router
 
 
 .get('/new', (req, res) => {
-    res.render('newArticulo', {title: 'Alta / Baja / Modificacion'});
+    res.render('newArticulo', {title: 'Alta de Articulos'});
 })
 
 //ruta para calcula abc de los articulos segun su valoricacion anual

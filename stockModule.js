@@ -1,8 +1,6 @@
 'use strict'
 
 const moment = require('moment');
-const ztable = require('ztable');
-
 
 module.exports = function(articulo) {
 
@@ -37,14 +35,18 @@ module.exports = function(articulo) {
          console.log(S);
          console.log(H);
          if (p > 0) {
-            console.log('modelo Q de prod');
             cantOptima = Math.sqrt( (2 * this.demandaAnual() * S * p) / (H * (p - d)) )
          }else{
-            console.log('modelo Q');
             cantOptima = Math.sqrt( (2 * this.demandaAnual() * S) / H )
          }
       }
       else if (articulo.modelo.toUpperCase() == 'P') {
+         console.log(d);
+         console.log(T);
+         console.log(L);
+         console.log(Z);
+         console.log(Otl);
+         console.log(I);
          cantOptima = d * ( T+L ) + ( Z * Otl ) - I
       }
 
@@ -52,7 +54,12 @@ module.exports = function(articulo) {
    }
 
    this.puntoReorden = ()=> {
-      let p = (d * L) +  (Z * Od)
+      let p
+      if (p > 0) {
+         p = (d * L) +  (Z * Od)
+      }else{
+         p = (d * L)
+      }
       return Math.floor( p )
    }
 
@@ -171,7 +178,7 @@ module.exports = function(articulo) {
    let Ol = Math.sqrt(L) * Od
    let Otl
    let edZ
-   if (articulo.modelo == 'p') {
+   if (articulo.modelo == 'P') {
       Otl = Math.sqrt( T + L) * Od
       edZ = (d * T * (1 - P)) / Otl
    }else{
